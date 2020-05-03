@@ -26,9 +26,16 @@ router.post('/', (req, res) => {
     .catch(err => res.send(err.message))
 })
 
-// PUT /api/v1/products/
+// PUT /api/v1/products/:id
 router.put('/:id', (req, res) => {
   productsdb.updateProduct(req.body, req.params.id)
+    .then(response => res.status(201).send())
+    .catch(err => res.send(err.message))
+})
+
+// DELETE /api/v1/products/:id
+router.delete('/:id', (req, res) => {
+  productsdb.deleteProduct(req.params.id)
     .then(response => res.status(201).send())
     .catch(err => res.send(err.message))
 })

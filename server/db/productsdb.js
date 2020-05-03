@@ -4,7 +4,8 @@ module.exports = {
   getAll,
   getProduct,
   addProduct,
-  updateProduct
+  updateProduct,
+  deleteProduct
 }
 
 function getAll (db = connection) {
@@ -29,4 +30,10 @@ function updateProduct (updates, id, db = connection) {
   return db('products')
     .where('product_id', id)
     .update({ ...updates })
+}
+
+function deleteProduct (id, db = connection) {
+  return db('products')
+    .where('product_id', id)
+    .del()
 }
