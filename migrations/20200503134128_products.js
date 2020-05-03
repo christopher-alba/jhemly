@@ -3,7 +3,7 @@ exports.up = function (knex) {
     table.increments('product_id').primary()
     table.string('product_name')
     table.string('product_picture')
-    table.decimal('price')
+    table.decimal('product_price')
     table.integer('favourites_count')
     table.integer('size_id').references('sizes.size_id')
   })
