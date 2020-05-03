@@ -2,7 +2,8 @@ const connection = require('./index')
 
 module.exports = {
   getAll,
-  getProduct
+  getProduct,
+  addProduct
 }
 
 function getAll (db = connection) {
@@ -14,4 +15,11 @@ function getProduct (id, db = connection) {
     .where('product_id', id)
     .select()
     .first()
+}
+
+function addProduct (product, db = connection) {
+  console.log(product);
+  
+  return db('products')
+    .insert({ ...product })
 }

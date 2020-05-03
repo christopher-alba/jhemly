@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
     .then(productsRes => {
       res.json(productsRes)
     })
+    .catch(err => res.send(err.message))
 })
 // GET /api/v1/products/:id
 router.get('/:id', (req, res) => {
@@ -16,4 +17,11 @@ router.get('/:id', (req, res) => {
     .then(productRes => {
       res.json(productRes)
     })
+    .catch(err => res.send(err.message))
+})
+// POST /api/v1/products/
+router.post('/', (req, res) => {
+  productsdb.addProduct(req.body)
+    .then(response => res.send(response))
+    .catch(err => res.send(err.message))
 })
