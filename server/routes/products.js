@@ -22,6 +22,13 @@ router.get('/:id', (req, res) => {
 // POST /api/v1/products/
 router.post('/', (req, res) => {
   productsdb.addProduct(req.body)
-    .then(response => res.send(response))
+    .then(response => res.status(201).send())
+    .catch(err => res.send(err.message))
+})
+
+// PUT /api/v1/products/
+router.put('/:id', (req, res) => {
+  productsdb.updateProduct(req.body, req.params.id)
+    .then(response => res.status(201).send())
     .catch(err => res.send(err.message))
 })
