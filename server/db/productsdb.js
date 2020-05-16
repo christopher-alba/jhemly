@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const connection = require('./index')
 
 module.exports = {
@@ -9,7 +10,9 @@ module.exports = {
 }
 
 function getAll (db = connection) {
-  return db('products').select()
+  return db('products')
+    .select()
+    .catch(err => errorHandler(err, 'getAll'))
 }
 
 function getProduct (id, db = connection) {
@@ -17,6 +20,7 @@ function getProduct (id, db = connection) {
     .where('product_id', id)
     .select()
     .first()
+    .catch(err => errorHandler(err, 'getProduct'))
 }
 
 function addProduct (product, db = connection) {
@@ -26,6 +30,7 @@ function addProduct (product, db = connection) {
       return db('products')
         .select()
     })
+    .catch(err => errorHandler(err, 'addProduct'))
 }
 
 function updateProduct (updates, id, db = connection) {
@@ -38,6 +43,7 @@ function updateProduct (updates, id, db = connection) {
         .select()
         .first()
     })
+    .catch(err => errorHandler(err, 'updateProduct'))
 }
 
 function deleteProduct (id, db = connection) {
@@ -47,4 +53,9 @@ function deleteProduct (id, db = connection) {
     .then(() => {
       return id
     })
+    .catch(err => errorHandler(err, 'deleteProduct'))
+}
+
+function errorHandler (err, location) {
+  console.log(`You have an error in ${location} function inside productsdb. \n ${err.message}`)
 }
