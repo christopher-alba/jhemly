@@ -52,5 +52,5 @@ function deleteProfile (id, db = connection) {
 }
 
 function errorHandler (err, location) {
-  return `There is an error in ${location}. \n ${err.message}`
+  return `There is a database function error in ${location} in profilesdb.js. \n ${err.message}`
 }
