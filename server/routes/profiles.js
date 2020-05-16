@@ -9,20 +9,26 @@ router.get('/', (req, res) => {
     .then(profiles => res.json(profiles))
 })
 
-// GET /api/v1/profiles/:profile_id
-router.get('/:profile_id', (req, res) => {
-  profilesdb.getProfile(req.params.profile_id)
+// GET /api/v1/profiles/:id
+router.get('/:id', (req, res) => {
+  profilesdb.getProfile(req.params.id)
     .then(profile => res.json(profile))
 })
 
 // POST /api/v1/profiles/
 router.post('/', (req, res) => {
   profilesdb.addProfile(req.body)
-    .then((res) => res.status(200).send())
+    .then(res => res.status(200).send())
 })
 
-// PUT /api/v1/profiles/:profile_id
-router.put('/:profile_id', (req, res) => {
-  profilesdb.updateProfile(req.body, req.params.profile_id)
-    .then((res) => res.status(200).send())
+// PUT /api/v1/profiles/:id
+router.put('/:id', (req, res) => {
+  profilesdb.updateProfile(req.body, req.params.id)
+    .then(res => res.status(200).send())
+})
+
+// DELETE /api/v1/profiles/:id
+router.delete('/:id', (req, res) => {
+  profilesdb.deleteProfile(req.params.id)
+    .then(res => res.status(200).send())
 })

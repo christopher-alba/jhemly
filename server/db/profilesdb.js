@@ -4,7 +4,8 @@ module.exports = {
   getAll,
   getProfile,
   addProfile,
-  updateProfile
+  updateProfile,
+  deleteProfile
 }
 
 function getAll (db = connection) {
@@ -29,3 +30,8 @@ function updateProfile (updates, id, db = connection) {
     .update({ ...updates })
 }
 
+function deleteProfile (id, db = connection) {
+  return db('profiles')
+    .where('profile_id', id)
+    .del()
+}
