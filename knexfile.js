@@ -9,7 +9,13 @@ module.exports = {
       filename: './dev.sqlite3'
     }
   },
-
+  test: {
+    client: 'sqlite3',
+    useNullAsDefault: true,
+    connection: {
+      filename: ':memory:'
+    }
+  },
   staging: {
     client: 'postgresql',
     connection: {

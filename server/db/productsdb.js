@@ -20,7 +20,6 @@ function getProduct (id, db = connection) {
 }
 
 function addProduct (product, db = connection) {
-  console.log(product)
 
   return db('products')
     .insert({ ...product })
