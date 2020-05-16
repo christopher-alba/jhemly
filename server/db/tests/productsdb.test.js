@@ -59,8 +59,11 @@ test('updateProduct correctly updates a product', () => {
     product_name: 'Oreos'
   }
   return db.updateProduct(updates, 1, testDb)
-    .then(product => {
-      const { product_name } = product
-      expect(product_name).toMatch('Oreos')
+    .then(() => {
+      db.getProduct(1, testDb)
+        .then(product => {
+          const { product_name } = product
+          expect(product_name).toMatch('Oreos')
+        })
     })
 })
