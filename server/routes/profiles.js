@@ -20,3 +20,9 @@ router.post('/', (req, res) => {
   profilesdb.addProfile(req.body)
     .then((res) => res.status(200).send())
 })
+
+// PUT /api/v1/profiles/:profile_id
+router.put('/:profile_id', (req, res) => {
+  profilesdb.updateProfile(req.body, req.params.profile_id)
+    .then((res) => res.status(200).send())
+})

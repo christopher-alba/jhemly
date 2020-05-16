@@ -3,7 +3,8 @@ const connection = require('./index')
 module.exports = {
   getAll,
   getProfile,
-  addProfile
+  addProfile,
+  updateProfile
 }
 
 function getAll (db = connection) {
@@ -21,3 +22,10 @@ function addProfile (profile, db = connection) {
   return db('profiles')
     .insert({ ...profile })
 }
+
+function updateProfile (updates, id, db = connection) {
+  return db('profiles')
+    .where('profile_id', id)
+    .update({ ...updates })
+}
+
