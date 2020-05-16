@@ -12,16 +12,16 @@ beforeAll(() => {
 beforeEach(() => {
   return testDb.seed.run()
 })
+
 test('getAll returns all the users', () => {
   return db.getAll(testDb)
     .then(users => expect(users).toHaveLength(6))
 })
+
 test('addUser adds a new user', () => {
   const user = {
-    user_name: 'chris',
-    user_picture: 'a picture1',
-    email: 'randomemail1@email.com',
-    mailing_address: '1randomstreet' }
+    email: 'awsomegoo@email.com',
+    password: '1randomstreet' }
   return db.addUser(user, testDb)
     .then(() => {
       return db.getAll(testDb)
@@ -31,6 +31,15 @@ test('addUser adds a new user', () => {
     })
 })
 
+test('addUser returns the new array of users', () => {
+  const user = {
+    email: 'awsomegoo@email.com',
+    password: '1randomstreet' }
+  return db.addUser(user, testDb)
+    .then(users => {
+      expect(users).toHaveLength(7)
+    })
+})
 test('deleteUser deletes the correct user', () => {
   return db.deleteUser(1, testDb)
     .then(() => {
@@ -40,7 +49,12 @@ test('deleteUser deletes the correct user', () => {
         })
     })
 })
-
+test('deleteUser returns the id of the deleted user', () => {
+  return db.deleteUser(1, testDb)
+    .then((id) => {
+      expect(id).toBe(1)
+    })
+})
 test('getUser gets the correct user', () => {
   return db.getUser(1, testDb)
     .then(user => {
@@ -51,11 +65,21 @@ test('getUser gets the correct user', () => {
 
 test('updateUser updates the user', () => {
   const updates = {
-    user_name: 'Chris'
+    email: 'chris@email.com'
   }
   return db.updateUser(updates, 1, testDb)
     .then(() => {
       return db.getUser(1, testDb)
-        .then(user => expect(user.user_name).toMatch('Chris'))
+        .then(user => expect(user.email).toMatch('chris@email.com'))
+    })
+})
+
+test('updateUser returns the correct user', () => {
+  const updates = {
+    email: 'chris@email.com'
+  }
+  return db.updateUser(updates, 1, testDb)
+    .then((user) => {
+      expect(user.email).toMatch('chris@email.com')
     })
 })
