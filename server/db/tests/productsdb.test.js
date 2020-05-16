@@ -1,5 +1,5 @@
 const knex = require('knex')
-const config = require('./knexfile').test
+const config = require('../../../knexfile').test
 const testDb = knex(config)
 
 const db = require('../productsdb')
@@ -21,9 +21,9 @@ test('addProduct adds a new product', () => {
     size_id: 7 }
   return db.addProduct(product, testDb)
     .then(() => {
-      testDb('products').select()
+      return testDb('products').select()
         .then(products => {
-          expect(products).toHaveLength(4)
+          return expect(products).toHaveLength(7)
         })
     })
 })
