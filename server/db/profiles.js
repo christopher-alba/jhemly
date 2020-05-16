@@ -2,7 +2,8 @@ const connection = require('./index')
 
 module.exports = {
   getAll,
-  getProfile
+  getProfile,
+  addProfile
 }
 
 function getAll (db = connection) {
@@ -14,4 +15,9 @@ function getProfile (id, db = connection) {
     .where('profile_id', id)
     .select()
     .first()
+}
+
+function addProfile (profile, db = connection) {
+  return db('profiles')
+    .insert({ ...profile })
 }

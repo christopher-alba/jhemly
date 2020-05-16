@@ -15,4 +15,8 @@ router.get('/:profile_id', (req, res) => {
     .then(profile => res.json(profile))
 })
 
-
+// POST /api/v1/profiles/
+router.post('/', (req, res) => {
+  profilesdb.addProfile(req.body)
+    .then((res) => res.status(200).send())
+})
