@@ -12,7 +12,10 @@ beforeAll(() => {
 beforeEach(() => {
   return testDb.seed.run()
 })
-
+test('getAll returns all the users', () => {
+  return db.getAll(testDb)
+    .then(users => expect(users).toHaveLength(6))
+})
 test('addUser adds a new user', () => {
   const user = {
     user_name: 'chris',
