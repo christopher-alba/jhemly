@@ -32,7 +32,7 @@ function updateProfile (updates, id, db = connection) {
     .where('profile_id', id)
     .update({ ...updates })
     .then(() => {
-      db('profiles')
+      return db('profiles')
         .where('profile_id', id)
         .select()
         .first()
