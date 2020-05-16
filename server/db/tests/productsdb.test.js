@@ -23,7 +23,17 @@ test('addProduct adds a new product', () => {
     .then(() => {
       return testDb('products').select()
         .then(products => {
-          return expect(products).toHaveLength(7)
+          expect(products).toHaveLength(7)
+        })
+    })
+})
+
+test('deleteProduct deletes the correct product', () => {
+  return db.deleteProduct(1, testDb)
+    .then(() => {
+      return testDb('products').select()
+        .then(products => {
+          expect(products).toHaveLength(5)
         })
     })
 })
