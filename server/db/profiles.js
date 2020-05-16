@@ -1,7 +1,8 @@
 const connection = require('./index')
 
 module.exports = {
-  getAll
+  getAll,
+  getProfile
 }
 
 function getAll (db = connection) {
@@ -10,5 +11,7 @@ function getAll (db = connection) {
 
 function getProfile (id, db = connection) {
   return db('profiles')
-    .where('profile_id')
+    .where('profile_id', id)
+    .select()
+    .first()
 }
