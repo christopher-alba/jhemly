@@ -10,6 +10,7 @@ module.exports = {
 
 function getAll (db = connection) {
   return db('profiles').select()
+    .catch(err => errorHandler(err, 'getAll'))
 }
 
 function getProfile (id, db = connection) {
@@ -17,6 +18,7 @@ function getProfile (id, db = connection) {
     .where('profile_id', id)
     .select()
     .first()
+    .catch(err => errorHandler(err, 'getProfile'))
 }
 
 function addProfile (profile, db = connection) {
@@ -25,6 +27,7 @@ function addProfile (profile, db = connection) {
     .then(() => {
       return db('profiles').select()
     })
+    .catch(err => errorHandler(err, 'addProfile'))
 }
 
 function updateProfile (updates, id, db = connection) {
@@ -37,6 +40,7 @@ function updateProfile (updates, id, db = connection) {
         .select()
         .first()
     })
+    .catch(err => errorHandler(err, 'updateProfile'))
 }
 
 function deleteProfile (id, db = connection) {
@@ -44,4 +48,9 @@ function deleteProfile (id, db = connection) {
     .where('profile_id', id)
     .del()
     .then(() => id)
+    .catch(err => errorHandler(err, 'deleteProfile'))
+}
+
+function errorHandler (err, location) {
+  return `There is an error in ${location}. \n ${err.message}`
 }
