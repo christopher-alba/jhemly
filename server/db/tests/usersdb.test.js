@@ -37,3 +37,22 @@ test('deleteUser deletes the correct user', () => {
         })
     })
 })
+
+test('getUser gets the correct user', () => {
+  return db.getUser(1, testDb)
+    .then(user => {
+      const { user_id } = user
+      expect(user_id).toBe(1)
+    })
+})
+
+test('updateUser updates the user', () => {
+  const updates = {
+    user_name: 'Chris'
+  }
+  return db.updateUser(updates, 1, testDb)
+    .then(() => {
+      return db.getUser(1, testDb)
+        .then(user => expect(user.user_name).toMatch('Chris'))
+    })
+})
