@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const knex = require('knex')
 const config = require('../../../knexfile').test
 const testDb = knex(config)
@@ -35,5 +36,20 @@ test('deleteProduct deletes the correct product', () => {
         .then(products => {
           expect(products).toHaveLength(5)
         })
+    })
+})
+
+test('getAll gets all the products', () => {
+  return db.getAll(testDb)
+    .then(products => {
+      expect(products).toHaveLength(6)
+    })
+})
+
+test('getProduct gets the correct product', () => {
+  return db.getProduct(1, testDb)
+    .then(product => {
+      const { product_id } = product
+      expect(product_id).toBe(1)
     })
 })
