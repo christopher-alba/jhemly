@@ -20,9 +20,12 @@ function getProduct (id, db = connection) {
 }
 
 function addProduct (product, db = connection) {
-
   return db('products')
     .insert({ ...product })
+    .then(() => {
+      return db('products')
+        .select()
+    })
 }
 
 function updateProduct (updates, id, db = connection) {
@@ -42,7 +45,6 @@ function deleteProduct (id, db = connection) {
     .where('product_id', id)
     .del()
     .then(() => {
-      return db('products')
-        .select()
+      return id
     })
 }

@@ -28,7 +28,18 @@ test('addProduct adds a new product', () => {
         })
     })
 })
-
+test('addProduct returns the new array of products', () => {
+  const product = {
+    product_name: 'productname7',
+    product_picture: 'productpicture7',
+    product_price: 0.99,
+    favourites_count: 7,
+    size_id: 7 }
+  return db.addProduct(product, testDb)
+    .then(products => {
+      expect(products).toHaveLength(7)
+    })
+})
 test('deleteProduct deletes the correct product', () => {
   return db.deleteProduct(1, testDb)
     .then(() => {
@@ -38,7 +49,12 @@ test('deleteProduct deletes the correct product', () => {
         })
     })
 })
-
+test('deleteProduct returns the id of the deleted product', () => {
+  return db.deleteProduct(1, testDb)
+    .then((id) => {
+      expect(id).toEqual(1)
+    })
+})
 test('getAll gets all the products', () => {
   return db.getAll(testDb)
     .then(products => {
