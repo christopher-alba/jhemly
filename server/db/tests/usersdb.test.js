@@ -27,3 +27,13 @@ test('addUser adds a new user', () => {
         })
     })
 })
+
+test('deleteUser deletes the correct user', () => {
+  return db.deleteUser(1, testDb)
+    .then(() => {
+      return db.getAll(testDb)
+        .then(users => {
+          expect(users).toHaveLength(5)
+        })
+    })
+})
