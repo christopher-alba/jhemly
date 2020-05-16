@@ -22,16 +22,26 @@ function getProfile (id, db = connection) {
 function addProfile (profile, db = connection) {
   return db('profiles')
     .insert({ ...profile })
+    .then(() => {
+      return db('profiles').select()
+    })
 }
 
 function updateProfile (updates, id, db = connection) {
   return db('profiles')
     .where('profile_id', id)
     .update({ ...updates })
+    .then(() => {
+      db('profiles')
+        .where('profile_id', id)
+        .select()
+        .first()
+    })
 }
 
 function deleteProfile (id, db = connection) {
   return db('profiles')
     .where('profile_id', id)
     .del()
+    .then(() => id)
 }
