@@ -53,3 +53,14 @@ test('getProduct gets the correct product', () => {
       expect(product_id).toBe(1)
     })
 })
+
+test('updateProduct correctly updates a product', () => {
+  const updates = {
+    product_name: 'Oreos'
+  }
+  return db.updateProduct(updates, 1, testDb)
+    .then(product => {
+      const { product_name } = product
+      expect(product_name).toMatch('Oreos')
+    })
+})
