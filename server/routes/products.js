@@ -1,11 +1,14 @@
 const productsdb = require('../db/productsdb')
 const express = require('express')
+const camelcaseKeys = require('camelcase-keys')
+
 const router = express.Router()
 module.exports = router
 
 // GET /api/v1/products/
 router.get('/', (req, res) => {
   productsdb.getAll()
+    .then(camelcaseKeys)
     .then(productsRes => {
       res.json(productsRes)
     })
@@ -14,6 +17,7 @@ router.get('/', (req, res) => {
 // GET /api/v1/products/:id
 router.get('/:id', (req, res) => {
   productsdb.getProduct(req.params.id)
+    .then(camelcaseKeys)
     .then(productRes => {
       res.json(productRes)
     })
@@ -22,6 +26,7 @@ router.get('/:id', (req, res) => {
 // POST /api/v1/products/
 router.post('/', (req, res) => {
   productsdb.addProduct(req.body)
+    .then(camelcaseKeys)
     .then(response => res.status(201).send())
     .catch(err => res.send(err.message))
 })
@@ -29,6 +34,7 @@ router.post('/', (req, res) => {
 // PUT /api/v1/products/:id
 router.put('/:id', (req, res) => {
   productsdb.updateProduct(req.body, req.params.id)
+    .then(camelcaseKeys)
     .then(response => res.status(201).send())
     .catch(err => res.send(err.message))
 })
