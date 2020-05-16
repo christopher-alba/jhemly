@@ -28,6 +28,7 @@ test('addProduct adds a new product', () => {
         })
     })
 })
+
 test('addProduct returns the new array of products', () => {
   const product = {
     product_name: 'productname7',
@@ -40,6 +41,7 @@ test('addProduct returns the new array of products', () => {
       expect(products).toHaveLength(7)
     })
 })
+
 test('deleteProduct deletes the correct product', () => {
   return db.deleteProduct(1, testDb)
     .then(() => {
@@ -49,12 +51,14 @@ test('deleteProduct deletes the correct product', () => {
         })
     })
 })
+
 test('deleteProduct returns the id of the deleted product', () => {
   return db.deleteProduct(1, testDb)
     .then((id) => {
       expect(id).toEqual(1)
     })
 })
+
 test('getAll gets all the products', () => {
   return db.getAll(testDb)
     .then(products => {
@@ -81,5 +85,16 @@ test('updateProduct correctly updates a product', () => {
           const { product_name } = product
           expect(product_name).toMatch('Oreos')
         })
+    })
+})
+
+test('updateProduct returns the new updated product', () => {
+  const updates = {
+    product_name: 'Oreos'
+  }
+  return db.updateProduct(updates, 1, testDb)
+    .then(product => {
+      const { product_name } = product
+      expect(product_name).toMatch('Oreos')
     })
 })
