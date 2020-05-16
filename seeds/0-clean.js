@@ -10,5 +10,6 @@ exports.seed = function (knex, Promise) {
     .then(empty('orders'))
     .then(empty('reviews'))
     .then(empty('products'))
+    .then(empty('profiles'))
     .then(empty('users'))
 }
