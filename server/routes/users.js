@@ -19,8 +19,8 @@ router.get('/:id', isGetOwner, (req, res) => {
     })
     .catch(err => res.send(err.message))
 })
-// POST /api/v1/users/
-router.post('/', isGetOwner, (req, res) => {
+// POST /api/v1/users/admin
+router.post('/', isAdmin, (req, res) => {
   usersdb.addUser(req.body)
     .then(response => res.status(201).send())
     .catch(err => res.send(err.message))

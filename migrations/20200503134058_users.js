@@ -3,6 +3,7 @@ exports.up = function (knex) {
     table.increments('user_id').primary()
     table.string('email').unique()
     table.string('password')
+    table.boolean('admin').defaultTo(false)
   })
 }
 

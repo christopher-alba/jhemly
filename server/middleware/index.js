@@ -31,6 +31,8 @@ module.exports = {
   },
   isAdmin: (req, res, next) => {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
+      console.log(user);
+      
       if (err) {
         return next(err)
       }

@@ -38,7 +38,7 @@ function addUser (User, db = connection) {
 function updateUser (updates, id, db = connection) {
   return db('users')
     .where('user_id', id)
-    .update({ ...updates })
+    .update({ ...updates, admin: false })
     .then(() => {
       return db('users')
         .where('user_id', id)
