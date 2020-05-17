@@ -27,7 +27,7 @@ function getUser (id, db = connection) {
 
 function addUser (User, db = connection) {
   return db('users')
-    .insert({ ...User, password:  })
+    .insert({ ...User })
     .then(() => {
       return db('users')
         .select()

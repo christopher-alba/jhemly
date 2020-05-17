@@ -2,7 +2,7 @@ const usersdb = require('../db/usersdb')
 const express = require('express')
 const router = express.Router()
 module.exports = router
-
+const { isGetOwner } = require('../middleware/index')
 // GET /api/v1/users/
 router.get('/', (req, res) => {
   usersdb.getAll()
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     .catch(err => res.send(err.message))
 })
 // GET /api/v1/users/:id
-router.get('/:id', (req, res) => {
+router.get('/:id', isGetOwner, (req, res) => {
   usersdb.getUser(req.params.id)
     .then(response => {
       res.json(response)
@@ -20,21 +20,21 @@ router.get('/:id', (req, res) => {
     .catch(err => res.send(err.message))
 })
 // POST /api/v1/users/
-router.post('/', (req, res) => {
+router.post('/', isGetOwner, (req, res) => {
   usersdb.addUser(req.body)
     .then(response => res.status(201).send())
     .catch(err => res.send(err.message))
 })
 
 // PUT /api/v1/users/:id
-router.put('/:id', (req, res) => {
+router.put('/:id', isGetOwner, (req, res) => {
   usersdb.updateUser(req.body, req.params.id)
     .then(response => res.status(201).send())
     .catch(err => res.send(err.message))
 })
 
 // DELETE /api/v1/users/:id
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isGetOwner, (req, res) => {
   usersdb.deleteUser(req.params.id)
     .then(response => res.status(201).send())
     .catch(err => res.send(err.message))
