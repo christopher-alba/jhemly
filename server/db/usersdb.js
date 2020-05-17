@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 const connection = require('./index')
+const crypto = require('crypto')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
   getAll,
@@ -25,7 +27,7 @@ function getUser (id, db = connection) {
 
 function addUser (User, db = connection) {
   return db('users')
-    .insert({ ...User })
+    .insert({ ...User, password:  })
     .then(() => {
       return db('users')
         .select()
