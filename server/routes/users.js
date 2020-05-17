@@ -2,9 +2,9 @@ const usersdb = require('../db/usersdb')
 const express = require('express')
 const router = express.Router()
 module.exports = router
-const { isGetOwner } = require('../middleware/index')
+const { isGetOwner, isAdmin } = require('../middleware/index')
 // GET /api/v1/users/
-router.get('/', (req, res) => {
+router.get('/', isAdmin, (req, res) => {
   usersdb.getAll()
     .then(usersRes => {
       res.json(usersRes)
