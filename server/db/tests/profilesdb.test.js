@@ -51,3 +51,11 @@ test('updateProfile updates the profile', () => {
       expect(product.user_name).toMatch('moooo')
     })
 })
+
+test('delete profile deletes the profile', () => {
+  return db.deleteProfile(1, testDb)
+    .then(() => {
+      db.getAll(testDb)
+        .then(profiles => expect(profiles).toHaveLength(5))
+    })
+})
