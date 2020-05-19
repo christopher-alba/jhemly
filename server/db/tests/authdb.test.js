@@ -20,3 +20,14 @@ test('test that authenticate checks that email does not exist', () => {
       expect(response).toMatch('Email does not exist')
     })
 })
+
+test('test that authenticate checks that password is wrong', () => {
+  const data = {
+    password: '1234567',
+    email: 'randomemail1@email.com'
+  }
+  return db.authenticate(data, testDb)
+    .then(response => {
+      expect(response).toMatch('Password does not match')
+    })
+})
