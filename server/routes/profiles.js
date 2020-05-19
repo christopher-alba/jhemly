@@ -2,7 +2,7 @@ const profilesdb = require('../db/profilesdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
 const router = express.Router()
-const { isGetOwner } = require('../middleware/index')
+const { isGetOwner, isAdmin } = require('../middleware/index')
 module.exports = router
 
 // GET /api/v1/profiles/
@@ -22,7 +22,7 @@ router.get('/:id', (req, res) => {
 })
 
 // POST /api/v1/profiles/
-router.post('/', isGetOwner, (req, res) => {
+router.post('/', isAdmin, (req, res) => {
   profilesdb.addProfile(req.body)
     .then(camelcaseKeys)
     .then(response => res.status(200).json(response))
