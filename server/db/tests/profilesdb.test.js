@@ -82,3 +82,8 @@ test('delete profile deletes the profile', () => {
         .then(profiles => expect(profiles).toHaveLength(5))
     })
 })
+
+test('delete profile returns the id of deleted item', () => {
+  return db.deleteProfile(1, testDb)
+    .then((id) => expect(id).toBe(1))
+})
