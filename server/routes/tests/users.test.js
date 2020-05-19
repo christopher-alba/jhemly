@@ -59,3 +59,11 @@ test('Test if addUser route is working', () => {
       expect(res.status).toBe(200)
     })
 })
+
+test('Test if updateUser route is working', () => {
+  return request(server)
+    .put('/api/v1/users/1')
+    .then(res => {
+      expect(res.status).toBe(200)
+    })
+})
