@@ -8,6 +8,9 @@ jest.mock('../../middleware/index', () => {
     },
     isGetOwner: (req, res, next) => {
       return next()
+    },
+    isFromOwner: (req, res, next) => {
+      return next()
     }
   }
 })

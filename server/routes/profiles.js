@@ -2,7 +2,7 @@ const profilesdb = require('../db/profilesdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
 const router = express.Router()
-const { isGetOwner, isAdmin } = require('../middleware/index')
+const { isAdmin, isFromOwner } = require('../middleware/index')
 module.exports = router
 
 // GET /api/v1/profiles/
@@ -30,7 +30,7 @@ router.post('/', isAdmin, (req, res) => {
 })
 
 // PUT /api/v1/profiles/:id
-router.put('/:id', isGetOwner, (req, res) => {
+router.put('/:id', (req, res, next) => isFromOwner('profile', req, res, next), (req, res) => {
   profilesdb.updateProfile(req.body, req.params.id)
     .then(camelcaseKeys)
     .then(response => res.status(200).json(response))
@@ -38,7 +38,7 @@ router.put('/:id', isGetOwner, (req, res) => {
 })
 
 // DELETE /api/v1/profiles/:id
-router.delete('/:id', isGetOwner, (req, res) => {
+router.delete('/:id', (req, res, next) => isFromOwner('profile', req, res, next), (req, res) => {
   profilesdb.deleteProfile(req.params.id)
     .then(response => res.status(200).send(response))
     .catch(err => res.status(500).send(err.message))
