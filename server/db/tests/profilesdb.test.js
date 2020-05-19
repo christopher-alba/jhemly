@@ -13,6 +13,16 @@ beforeEach(() => {
   return testDb.seed.run()
 })
 
+test('getAll returns all profiles', () => {
+  return db.getAll(testDb)
+    .then(profiles => expect(profiles).toHaveLength(6))
+})
+
+test('getProfile gets correct profile', () => {
+  return db.getProfile(1, testDb)
+    .then(profile => expect(profile.user_id).toBe(1))
+})
+
 test('addProfile adds a new profile', () => {
   const profile = {
     user_id: 7,
@@ -27,11 +37,6 @@ test('addProfile adds a new profile', () => {
     .then(profiles => {
       expect(profiles).toHaveLength(7)
     })
-})
-
-test('getAll returns all profiles', () => {
-  return db.getAll(testDb)
-    .then(profiles => expect(profiles).toHaveLength(6))
 })
 
 test('updateProfile updates the profile', () => {

@@ -26,9 +26,7 @@ function addProfile (profile, db = connection) {
 
   return db('profiles')
     .insert({ ...profile })
-    .then(res => {
-      console.log("testing")
-
+    .then(() => {
       return db('profiles').select()
     })
     .catch(err => errorHandler(err, 'addProfile'))
