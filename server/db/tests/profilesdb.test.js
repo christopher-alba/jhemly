@@ -33,3 +33,16 @@ test('getAll returns all profiles', () => {
   return db.getAll(testDb)
     .then(profiles => expect(profiles).toHaveLength(6))
 })
+
+test('updateProfile updates the profile', () => {
+  const updates = {
+    user_name: 'moooo'
+  }
+  return db.updateProfile(updates, 1, testDb)
+    .then(() => {
+      return db.getProfile(1, testDb)
+    })
+    .then(product => {
+      expect(product.user_name).toMatch('moooo')
+    })
+})
