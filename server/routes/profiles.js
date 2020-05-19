@@ -2,7 +2,7 @@ const profilesdb = require('../db/profilesdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
 const router = express.Router()
-const { isAdmin, isGetOwner } = require('../middleware/index')
+const { isGetOwner } = require('../middleware/index')
 module.exports = router
 
 // GET /api/v1/profiles/
