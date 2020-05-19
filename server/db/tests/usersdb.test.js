@@ -43,7 +43,7 @@ test('addUser returns the new array of users', () => {
 test('deleteUser deletes the correct user', () => {
   return db.deleteUser(1, testDb)
     .then(() => {
-      return db.getAll(testDb)
+      return testDb('users').select()
         .then(users => {
           expect(users).toHaveLength(5)
         })
@@ -69,7 +69,7 @@ test('updateUser updates the user', () => {
   }
   return db.updateUser(updates, 1, testDb)
     .then(() => {
-      return db.getUser(1, testDb)
+      return testDb('users').where('user_id', 1).select().first()
         .then(user => expect(user.email).toMatch('chris@email.com'))
     })
 })

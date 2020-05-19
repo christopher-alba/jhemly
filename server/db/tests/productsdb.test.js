@@ -80,7 +80,7 @@ test('updateProduct correctly updates a product', () => {
   }
   return db.updateProduct(updates, 1, testDb)
     .then(() => {
-      testDb('products').where('product_id', 1).select().first()
+      return testDb('products').where('product_id', 1).select().first()
         .then(product => {
           const { product_name } = product
           expect(product_name).toMatch('Oreos')
