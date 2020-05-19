@@ -58,7 +58,7 @@ test('updateProfile updates the profile', () => {
   }
   return db.updateProfile(updates, 1, testDb)
     .then(() => {
-      return db.getProfile(1, testDb)
+      return testDb('profiles').where('profile_id', 1).select().first()
     })
     .then(product => {
       expect(product.user_name).toMatch('moooo')
@@ -78,7 +78,7 @@ test('updateProfile returns the updated profile', () => {
 test('delete profile deletes the profile', () => {
   return db.deleteProfile(1, testDb)
     .then(() => {
-      db.getAll(testDb)
+      testDb('profiles').select()
         .then(profiles => expect(profiles).toHaveLength(5))
     })
 })
