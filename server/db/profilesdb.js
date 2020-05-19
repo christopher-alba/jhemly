@@ -22,8 +22,6 @@ function getProfile (id, db = connection) {
 }
 
 function addProfile (profile, db = connection) {
-  console.log(profile)
-
   return db('profiles')
     .insert({ ...profile })
     .then(() => {
