@@ -5,8 +5,6 @@ module.exports = {
   isLoggedIn: () => passport.authenticate('jwt', { session: false }),
   isGetOwner: (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
-      console.log(user)
-
       if (err) {
         return next(err)
       }
@@ -31,8 +29,6 @@ module.exports = {
   },
   isAdmin: (req, res, next) => {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
-      console.log(user);
-      
       if (err) {
         return next(err)
       }

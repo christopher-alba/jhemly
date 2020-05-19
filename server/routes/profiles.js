@@ -2,10 +2,11 @@ const profilesdb = require('../db/profilesdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
 const router = express.Router()
+const { isAdmin } = require('../middleware/index')
 module.exports = router
 
 // GET /api/v1/profiles/
-router.get('/', (req, res) => {
+router.get('/', isAdmin, (req, res) => {
   profilesdb.getAll()
     .then(camelcaseKeys)
     .then(profiles => res.status(200).json(profiles))

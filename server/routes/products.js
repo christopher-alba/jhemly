@@ -6,7 +6,7 @@ const router = express.Router()
 module.exports = router
 
 // GET /api/v1/products/
-router.get('/', isAdmin, (req, res) => {
+router.get('/', (req, res) => {
   productsdb.getAll()
     .then(camelcaseKeys)
     .then(productsRes => {
@@ -15,7 +15,7 @@ router.get('/', isAdmin, (req, res) => {
     .catch(err => res.send(err.message))
 })
 // GET /api/v1/products/:id
-router.get('/:id', isAdmin, (req, res) => {
+router.get('/:id', (req, res) => {
   productsdb.getProduct(req.params.id)
     .then(camelcaseKeys)
     .then(productRes => {
