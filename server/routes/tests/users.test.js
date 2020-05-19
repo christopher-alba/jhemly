@@ -67,3 +67,11 @@ test('Test if updateUser route is working', () => {
       expect(res.status).toBe(200)
     })
 })
+
+test('Test if deleteUser route is working', () => {
+  return request(server)
+    .delete('/api/v1/users/1')
+    .then(res => {
+      expect(res.status).toBe(200)
+    })
+})
