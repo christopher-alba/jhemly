@@ -22,20 +22,20 @@ router.get('/:id', isGetOwner, (req, res) => {
 // POST /api/v1/users/admin
 router.post('/', isAdmin, (req, res) => {
   usersdb.addUser(req.body)
-    .then(response => res.status(201).send())
+    .then(response => res.status(200).send())
     .catch(err => res.send(err.message))
 })
 
 // PUT /api/v1/users/:id
 router.put('/:id', isGetOwner, (req, res) => {
   usersdb.updateUser(req.body, req.params.id)
-    .then(response => res.status(201).send())
+    .then(response => res.status(200).send())
     .catch(err => res.send(err.message))
 })
 
 // DELETE /api/v1/users/:id
 router.delete('/:id', isGetOwner, (req, res) => {
   usersdb.deleteUser(req.params.id)
-    .then(response => res.status(201).send())
+    .then(response => res.status(200).send())
     .catch(err => res.send(err.message))
 })

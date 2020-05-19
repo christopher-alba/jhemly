@@ -11,6 +11,7 @@ jest.mock('../../middleware/index', () => {
     }
   }
 })
+
 jest.mock('../../db/usersdb', () => {
   return {
     getAll: () => {
@@ -34,6 +35,7 @@ jest.mock('../../db/usersdb', () => {
     }
   }
 })
+
 test('Test if getAll route is working', () => {
   return request(server)
     .get('/api/v1/users')
@@ -45,6 +47,14 @@ test('Test if getAll route is working', () => {
 test('Test if getUser route is working', () => {
   return request(server)
     .get('/api/v1/users/1')
+    .then(res => {
+      expect(res.status).toBe(200)
+    })
+})
+
+test('Test if addUser route is working', () => {
+  return request(server)
+    .post('/api/v1/users/')
     .then(res => {
       expect(res.status).toBe(200)
     })
