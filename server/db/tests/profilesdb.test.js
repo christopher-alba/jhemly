@@ -17,12 +17,19 @@ test('addProfile adds a new profile', () => {
   const profile = {
     user_id: 7,
     user_name: 'Seven',
-    profle_image: 'random image 7',
+    profile_image: 'random image 7',
     mailing_address: 'street7'
   }
   return db.addProfile(profile, testDb)
-    .then(() => testDb('profiles').select())
+    .then(() => {
+      return testDb('profiles').select()
+    })
     .then(profiles => {
       expect(profiles).toHaveLength(7)
     })
+})
+
+test('getAll returns all profiles', () => {
+  return db.getAll(testDb)
+    .then(profiles => expect(profiles).toHaveLength(6))
 })
