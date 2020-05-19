@@ -65,6 +65,16 @@ test('updateProfile updates the profile', () => {
     })
 })
 
+test('updateProfile returns the updated profile', () => {
+  const updates = {
+    user_name: 'moooo'
+  }
+  return db.updateProfile(updates, 1, testDb)
+    .then(product => {
+      expect(product.user_name).toMatch('moooo')
+    })
+})
+
 test('delete profile deletes the profile', () => {
   return db.deleteProfile(1, testDb)
     .then(() => {
