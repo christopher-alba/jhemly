@@ -14,7 +14,7 @@ module.exports = {
       next()
     })(req, res, next)
   },
-  isWriteOwner: (req, res, next) => {
+  isFromOwner: (req, res, next) => {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
       const dataName = Object.keys(req.params)[0]
       if (err) {

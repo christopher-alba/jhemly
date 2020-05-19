@@ -6,7 +6,7 @@ const { isAdmin, isGetOwner } = require('../middleware/index')
 module.exports = router
 
 // GET /api/v1/profiles/
-router.get('/', isAdmin, (req, res) => {
+router.get('/', (req, res) => {
   profilesdb.getAll()
     .then(camelcaseKeys)
     .then(profiles => res.status(200).json(profiles))
@@ -14,7 +14,7 @@ router.get('/', isAdmin, (req, res) => {
 })
 
 // GET /api/v1/profiles/:id
-router.get('/:id', isGetOwner, (req, res) => {
+router.get('/:id', (req, res) => {
   profilesdb.getProfile(req.params.id)
     .then(camelcaseKeys)
     .then(profile => res.status(200).json(profile))
