@@ -1,5 +1,6 @@
 const passport = require('../config/passport')
 const db = require('../db/index')
+
 const isLoggedIn = () => passport.authenticate('jwt', { session: false })
 const isGetOwner = (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
