@@ -1,5 +1,8 @@
 const request = require('supertest')
 const server = require('../../server')
+const knex = require('knex')
+const config = require('../../../knexfile').test
+const testDb = knex(config)
 
 jest.mock('../../middleware/index', () => {
   return {
@@ -37,6 +40,14 @@ jest.mock('../../db/profilesdb', () => {
       return Promise.resolve()
     }
   }
+})
+
+beforeAll(() => {
+  return testDb.migrate.latest()
+})
+
+beforeEach(() => {
+  return testDb.seed.run()
 })
 
 test('Test if getAll route is working', () => {

@@ -12,9 +12,11 @@ const authenticate = async (data, db = connection) => {
 
     const userDetails = await fn.getProfile(user.user_id)
     const { admin } = await userfn.getUser(user.user_id)
+
     return { ...userDetails, admin }
   } catch (err) {
-    return 'Authentication - Something went wrong'
+    // return 'Authentication - Something went wrong'
+    return err
   }
 }
 

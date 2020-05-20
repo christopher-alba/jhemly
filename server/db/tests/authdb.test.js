@@ -10,6 +10,20 @@ beforeAll(() => {
 beforeEach(() => {
   return testDb.seed.run()
 })
+
+jest.mock('../profilesdb', () => {
+  return {
+    getProfile: () => ({ name: 'hello' })
+
+  }
+})
+
+jest.mock('../usersdb', () => {
+  return {
+    getUser: () => ({ admin: true })
+  }
+})
+
 test('test that authenticate checks that email does not exist', () => {
   const data = {
     password: '123456',
@@ -29,5 +43,17 @@ test('test that authenticate checks that password is wrong', () => {
   return db.authenticate(data, testDb)
     .then(response => {
       expect(response).toMatch('Password does not match')
+    })
+})
+
+test('test that authentication works if email and password are right', () => {
+  const data = {
+    password: '123456',
+    email: 'randomemail1@email.com'
+  }
+  return db.authenticate(data, testDb)
+    .then(response => {
+      expect(typeof response).toBe('object')
+      expect(response.admin).toBeTruthy()
     })
 })

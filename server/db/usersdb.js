@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 const connection = require('./index')
-const crypto = require('crypto')
-const jwt = require('jsonwebtoken')
 
 module.exports = {
   getAll,
@@ -17,7 +15,7 @@ function getAll (db = connection) {
     .catch(err => errorHandler(err, 'getAll'))
 }
 
-function getUser (id, db = connection) {
+async function getUser (id, db = connection) {
   return db('users')
     .where('user_id', id)
     .select()
