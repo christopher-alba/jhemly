@@ -17,7 +17,7 @@ router.get('/:id', (req, res) => {
 })
 
 // POST /api/v1/sizes/:id
-router.post('/', (req, res) => {
+router.post('/', isAdmin, (req, res) => {
   sizesdb.addSize(req.body)
     .then(camelcaseKeys)
     .then(response => {
