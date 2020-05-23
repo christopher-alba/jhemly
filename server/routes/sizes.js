@@ -10,8 +10,8 @@ module.exports = router
 router.get('/:id', (req, res) => {
   sizesdb.getSizes(req.params.id)
     .then(camelcaseKeys)
-    .then(response => {
-      res.status(200).json(response)
+    .then(allSizes => {
+      res.status(200).json(allSizes)
     })
     .catch(err => res.status(400).send(err.message))
 })
@@ -20,8 +20,25 @@ router.get('/:id', (req, res) => {
 router.post('/', isAdmin, (req, res) => {
   sizesdb.addSize(req.body)
     .then(camelcaseKeys)
-    .then(response => {
-      res.status(200).json(response)
+    .then(allSizes => {
+      res.status(200).json(allSizes)
     })
+    .catch(err => res.status(400).send(err.message))
+})
+
+// PUT /api/v1/sizes/:id
+router.put('/:id', isAdmin, (req, res) => {
+  sizesdb.updateSize(req.body, req.params.id)
+    .then(camelcaseKeys)
+    .then(updated => {
+      res.status(200).json(updated)
+    })
+    .catch(err => res.status(400).send(err.message))
+})
+
+// DELETE /api/v1/sizes/:id
+router.delete('/:id', isAdmin, (req, res) => {
+  sizesdb.deleteSize(req.params.id)
+    .then(id => res.status(200).send(id))
     .catch(err => res.status(400).send(err.message))
 })

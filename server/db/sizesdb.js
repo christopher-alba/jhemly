@@ -3,7 +3,8 @@ const connection = require('./index')
 module.exports = {
   getSizes,
   addSize,
-  updateSize
+  updateSize,
+  deleteSize
 }
 
 function getSizes (id, db = connection) {
@@ -30,5 +31,14 @@ function updateSize (updates, id, db = connection) {
         .where('size_id', id)
         .select()
         .first()
+    })
+}
+
+function deleteSize (id, db = connection) {
+  return db('sizes')
+    .where('size_id', id)
+    .del()
+    .then(() => {
+      return id
     })
 }
