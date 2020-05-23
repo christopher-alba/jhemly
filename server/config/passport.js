@@ -5,7 +5,7 @@ const db = require('../db/index')
 
 const opts = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SECRET 
+  secretOrKey: process.env.SECRET
 }
 
 passport.use(

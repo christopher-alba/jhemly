@@ -57,3 +57,33 @@ test('test that authentication works if email and password are right', () => {
       expect(response.admin).toBeTruthy()
     })
 })
+
+test('test that a new user is added', () => {
+  const data = {
+    password: '123456',
+    confirmPassword: '123456',
+    email: 'randomemail@email.com',
+    userName: 'randomUser'
+  }
+  return db.newUser(data, testDb)
+    .then(() => {
+      return testDb('profiles').select()
+    })
+    .then(profiles => {
+      expect(profiles.length)
+    })
+})
+
+test('test that non matching passwords return correct error', () => {
+  const data = {
+    password: '123456',
+    confirmPassword: '1234567',
+    email: 'randomemail@email.com',
+    userName: 'randomUser'
+  }
+  return db.newUser(data, testDb)
+    .then(res => {
+      expect(res).toMatch('Password does not match')
+    })
+})
+
