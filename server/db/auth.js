@@ -15,8 +15,7 @@ const authenticate = async (data, db = connection) => {
 
     return { ...userDetails, admin }
   } catch (err) {
-    // return 'Authentication - Something went wrong'
-    return err
+    return 'Authentication - Something went wrong'
   }
 }
 

@@ -24,3 +24,9 @@ test('test if authenticate route works', () => {
     .post('/api/v1/auth/login')
     .then(res => expect(res.status).toBe(200))
 })
+
+test('test if new user route works', () => {
+  return request(server)
+    .post('/api/v1/auth/register')
+    .then(res => expect(res.status).toBe(200))
+})
