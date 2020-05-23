@@ -13,9 +13,11 @@ const products = require('./routes/products')
 const users = require('./routes/users')
 const profiles = require('./routes/profiles')
 const auth = require('./routes/auth')
+const sizes = require('./routes/sizes')
 
 server.use('/api/v1/products', products)
 server.use('/api/v1/users', users)
 server.use('/api/v1/profiles', profiles)
 server.use('/api/v1/auth', auth)
+server.use('/api/v1/sizes', sizes)
 module.exports = server
