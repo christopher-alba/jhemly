@@ -87,3 +87,15 @@ test('test that non matching passwords return correct error', () => {
     })
 })
 
+test('test that taken email return correct error', () => {
+  const data = {
+    password: '123456',
+    confirmPassword: '123456',
+    email: 'randomemail1@email.com',
+    userName: 'randomUser'
+  }
+  return db.newUser(data, testDb)
+    .then(res => {
+      expect(res).toMatch('Email is already taken')
+    })
+})
