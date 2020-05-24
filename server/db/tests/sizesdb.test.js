@@ -22,3 +22,19 @@ test('test addSize works', () => {
   return db.addSize({}, testDb)
     .then(sizes => expect(sizes).toHaveLength(10))
 })
+
+test('test updateSize works', () => {
+  const updates = {
+    product_id: 1
+  }
+  return db.updateSize(updates, 7, testDb)
+    .then(size => expect(size.product_id).toBe(1))
+})
+
+test('test deleteSize works', () => {
+  return db.deleteSize(7, testDb)
+    .then(() => {
+      return testDb('sizes').select()
+    })
+    .then(sizes => expect(sizes).toHaveLength(8))
+})
