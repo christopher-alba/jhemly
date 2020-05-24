@@ -38,3 +38,9 @@ test('test if getReviews route works', () => {
     .get('/api/v1/reviews/1')
     .then(res => expect(res.status).toBe(200))
 })
+
+test('test if addReview route works', () => {
+  request(server)
+    .post('/api/v1/reviews/')
+    .then(res => expect(res.status).toBe(200))
+})
