@@ -20,3 +20,8 @@ test('test if getReviews works', () => {
   return db.getReviews(1, testDb)
     .then(reviews => expect(reviews).toHaveLength(5))
 })
+
+test('test if addReview works', () => {
+  return db.addReview({}, testDb)
+    .then(reviews => expect(reviews).toHaveLength(6))
+})
