@@ -30,3 +30,9 @@ test('test if updateReview works', () => {
   return db.updateReview({ review_text: `you're amazing` }, 1, testDb)
     .then(review => expect(review.review_text).toMatch(`you're amazing`))
 })
+
+test('test if deleteReview works', () => {
+  return db.deleteReview(1, testDb)
+    .then(() => testDb('reviews').select())
+    .then(reviews => expect(reviews).toHaveLength(4))
+})
