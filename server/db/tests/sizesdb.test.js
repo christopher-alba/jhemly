@@ -17,3 +17,8 @@ test('test getSizes works', () => {
   return db.getSizes(1, testDb)
     .then(sizes => expect(sizes).toHaveLength(1))
 })
+
+test('test addSize works', () => {
+  return db.addSize({}, testDb)
+    .then(sizes => expect(sizes).toHaveLength(10))
+})
