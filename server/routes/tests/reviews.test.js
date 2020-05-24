@@ -32,3 +32,9 @@ test('test if getAll route works', () => {
     .get('/api/v1/reviews')
     .then(res => expect(res.status).toBe(200))
 })
+
+test('test if getReviews route works', () => {
+  request(server)
+    .get('/api/v1/reviews/1')
+    .then(res => expect(res.status).toBe(200))
+})
