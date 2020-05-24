@@ -27,7 +27,7 @@ router.get('/:id', isGetOwner, (req, res) => {
 })
 
 // POST /api/v1/reviews/:id
-router.post('/', isLoggedIn(), (req, res) => {
+router.post('/', (req, res, next) => isLoggedIn(next), (req, res) => {
   reviewsdb.addReview(req.body)
     .then(camelcaseKeys)
     .then(allreviews => {
@@ -37,7 +37,7 @@ router.post('/', isLoggedIn(), (req, res) => {
 })
 
 // PUT /api/v1/reviews/:id
-router.put('/:id', isFromOwner, (req, res) => {
+router.put('/:id', (req, res, next) => isFromOwner('review', req, res, next), (req, res) => {
   reviewsdb.updateReview(req.body, req.params.id)
     .then(camelcaseKeys)
     .then(updated => {
@@ -47,7 +47,7 @@ router.put('/:id', isFromOwner, (req, res) => {
 })
 
 // DELETE /api/v1/reviews/:id
-router.delete('/:id', isFromOwner, (req, res) => {
+router.delete('/:id', (req, res, next) => isFromOwner('review', req, res, next), (req, res) => {
   reviewsdb.deleteReview(req.params.id)
     .then(id => res.status(200).send(id))
     .catch(err => res.status(400).send(err.message))

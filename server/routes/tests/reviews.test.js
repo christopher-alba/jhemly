@@ -1,5 +1,5 @@
 const request = require('supertest')
-
+const server = require('../../server')
 jest.mock('../../db/reviewsdb', () => {
   return {
     getAll: () => Promise.resolve(),
@@ -21,8 +21,14 @@ jest.mock('../../middleware/index', () => {
     isFromOwner: (location, req, res, next) => {
       return next()
     },
-    isLoggedIn: (req, res, next) => {
+    isLoggedIn: (next) => {
       return next()
     }
   }
+})
+
+test('test if getAll route works', () => {
+  request(server)
+    .get('/api/v1/reviews')
+    .then(res => expect(res.status).toBe(200))
 })
