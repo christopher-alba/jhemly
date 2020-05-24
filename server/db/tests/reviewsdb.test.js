@@ -25,3 +25,8 @@ test('test if addReview works', () => {
   return db.addReview({}, testDb)
     .then(reviews => expect(reviews).toHaveLength(6))
 })
+
+test('test if updateReview works', () => {
+  return db.updateReview({ review_text: `you're amazing` }, 1, testDb)
+    .then(review => expect(review.review_text).toMatch(`you're amazing`))
+})

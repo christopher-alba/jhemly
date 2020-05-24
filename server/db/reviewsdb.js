@@ -3,7 +3,7 @@ const connection = require('./index')
 module.exports = {
   getAll,
   getReviews,
-  addReviews,
+  addReview,
   updateReview,
   deleteReview
 }
@@ -20,7 +20,7 @@ function getReviews (id, db = connection) {
     .catch(err => errorHandler('getReviews', err))
 }
 
-function addReviews (review, db = connection) {
+function addReview (review, db = connection) {
   return db('reviews')
     .insert({ ...review })
     .then(() => db('reviews').select())
