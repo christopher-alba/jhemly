@@ -26,3 +26,11 @@ test('test if addOrder works', () => {
   return db.addOrder({}, testDb)
     .then(orders => expect(orders).toHaveLength(6))
 })
+
+test('test if deleteOrder works', () => {
+  return db.deleteOrder(1, testDb)
+    .then(() => {
+      return testDb('orders').select()
+    })
+    .then(orders => expect(orders).toHaveLength(4))
+})
