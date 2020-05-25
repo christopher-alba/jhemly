@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const cors = require('cors')
 const server = express()
-if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+require('dotenv').config()
 
 server.use(cors())
 server.use(express.json())
