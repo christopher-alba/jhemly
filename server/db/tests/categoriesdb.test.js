@@ -16,3 +16,14 @@ test('test getAll works', () => {
   return db.getAll(testDb)
     .then(cats => expect(cats).toHaveLength(4))
 })
+
+test('test addCategory works', () => {
+  return db.addCategory({}, testDb)
+    .then(cats => expect(cats).toHaveLength(5))
+})
+
+test('test deleteCategory works', () => {
+  return db.deleteCategory(1, testDb)
+    .then(() => testDb('categories').select())
+    .then(cats => expect(cats).toHaveLength(3))
+})
