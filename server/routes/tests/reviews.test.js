@@ -50,3 +50,9 @@ test('test if updateReview route works', () => {
     .put('/api/v1/reviews/1')
     .then(res => expect(res.status).toBe(200))
 })
+
+test('test if deleteReview route works', () => {
+  request(server)
+    .delete('/api/v1/reviews/1')
+    .then(res => expect(res.status).toBe(200))
+})
