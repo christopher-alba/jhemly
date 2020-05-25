@@ -2,7 +2,7 @@ const reviewsdb = require('../db/reviewsdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
 const router = express.Router()
-const { isAdmin, isGetOwner, isLoggedIn, isFromOwner } = require('../middleware/index')
+const { isGetOwner, isLoggedIn, isFromOwner } = require('../middleware/index')
 
 module.exports = router
 
