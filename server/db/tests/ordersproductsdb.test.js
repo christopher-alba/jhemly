@@ -11,3 +11,16 @@ test('test getAll works', () => {
   return db.getAll(testDb)
     .then(items => expect(items).toHaveLength(3))
 })
+
+test('test getByOrderId', () => {
+  return db.getByOrderId(1, testDb)
+    .then(items => expect(items).toHaveLength(3))
+})
+
+test('test addOrderItem', () => {
+  return db.addOrderItem({ order_id: 1 }, testDb)
+    .then(() => {
+      return testDb('orders_products').select()
+    })
+    .then(allItems => expect(allItems).toHaveLength(4))
+})
