@@ -24,3 +24,11 @@ test('test addOrderItem', () => {
     })
     .then(allItems => expect(allItems).toHaveLength(4))
 })
+
+test('test deleteOrderItem', () => {
+  return db.deleteOrderItem(1, 2, testDb)
+    .then(() => {
+      return testDb('orders_products').select()
+    })
+    .then(allItems => expect(allItems).toHaveLength(2))
+})
