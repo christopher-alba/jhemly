@@ -32,6 +32,6 @@ router.post('/', (req, res) => {
 router.delete('/', (req, res) => {
   db.deleteOrderItem(req.body.orderId, req.body.productId)
     .then(camelcaseKeys)
-    .then(id => res.status(200).json(id))
+    .then(() => res.status(200).send())
     .catch(err => res.status(500).send(err.message))
 })

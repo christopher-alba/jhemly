@@ -17,6 +17,7 @@ const sizes = require('./routes/sizes')
 const reviews = require('./routes/reviews')
 const categories = require('./routes/categories')
 const orders = require('./routes/orders')
+const ordersproducts = require('./routes/ordersproducts')
 
 server.use('/api/v1/products', products)
 server.use('/api/v1/users', users)
@@ -26,5 +27,6 @@ server.use('/api/v1/sizes', sizes)
 server.use('/api/v1/reviews', reviews)
 server.use('/api/v1/categories', categories)
 server.use('/api/v1/orders', orders)
+server.use('/api/v1/ordersproducts', ordersproducts)
 
 module.exports = server
