@@ -30,3 +30,20 @@ test('test if getAll route works', () => {
     .then(res => expect(res.status).toBe(200))
 })
 
+test('test if getByOrderId route works', () => {
+  return request(server)
+    .get('/api/v1/ordersproducts/1')
+    .then(res => expect(res.status).toBe(200))
+})
+
+test('test if addOrderItem route works', () => {
+  return request(server)
+    .get('/api/v1/ordersproducts/')
+    .then(res => expect(res.status).toBe(200))
+})
+
+test('test if deleteOrderItem route works', () => {
+  return request(server)
+    .delete('/api/v1/ordersproducts/')
+    .then(res => expect(res.status).toBe(200))
+})
