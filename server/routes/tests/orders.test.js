@@ -31,3 +31,26 @@ test('test if getAll route works', () => {
     .then(res => expect(res.status).toBe(200))
 })
 
+test('test if getOrder route works', () => {
+  return request(server)
+    .get('/api/v1/orders/1')
+    .then(res => expect(res.status).toBe(200))
+})
+
+test('test if getOrders route works', () => {
+  return request(server)
+    .get('/api/v1/orders/user/1')
+    .then(res => expect(res.status).toBe(200))
+})
+
+test('test if addOrder route works', () => {
+  return request(server)
+    .post('/api/v1/orders/')
+    .then(res => expect(res.status).toBe(200))
+})
+
+test('test if deleteOrder route works', () => {
+  return request(server)
+    .delete('/api/v1/orders/1')
+    .then(res => expect(res.status).toBe(200))
+})
