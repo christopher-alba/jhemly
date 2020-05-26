@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const db = require('../db/ordersdb')
 const camelcaseKeys = require('camelcase-keys')
-const { isAdmin, isGetOwner, isLoggedIn, isFromOwner } = require('../middleware/index')
+const { isAdmin, isGetOwner } = require('../middleware/index')
 module.exports = router
 
 // GET /api/v1/orders
@@ -29,7 +29,7 @@ router.get('/user/:id', isGetOwner, (req, res) => {
 })
 
 // POST /api/v1/orders/
-router.post('/', isLoggedIn(), (req, res) => {
+router.post('/', (req, res) => {
   db.addOrder(req.body)
     .then(camelcaseKeys)
     .then(orders => res.status(200).json(orders))
@@ -37,7 +37,7 @@ router.post('/', isLoggedIn(), (req, res) => {
 })
 
 // DELETE /api/v1/orders/:id
-router.delete('/:id', (req, res, next) => isFromOwner('orders', req, res, next), (req, res) => {
+router.delete('/:id', isAdmin, (req, res) => {
   db.deleteOrder(req.params.id)
     .then(id => res.status(200).send(id))
     .catch(err => res.status(500).send(err.message))
