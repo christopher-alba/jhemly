@@ -35,13 +35,14 @@ function deleteCartItem (userId, productId, db = connection) {
   return db('users_cart')
     .where({ user_id: userId, product_id: productId })
     .del()
+    .catch(err => errorHandler('deleteCartItem', err))
 }
 
 function clearUserCart (id, db = connection) {
   return db('users_cart')
     .where('user_id', id)
     .del()
-    .catch(err => errorHandler('getUserCart', err))
+    .catch(err => errorHandler('clearUserCart', err))
 }
 
 function errorHandler (location, error) {

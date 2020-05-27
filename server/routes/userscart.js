@@ -25,6 +25,21 @@ router.get('/:id', isGetOwner, (req, res) => {
 // POST /api/v1/userscart/
 router.post('/', isLoggedIn(), (req, res) => {
   userscartdb.addCartItem(req.body)
+    .then(camelcaseKeys)
     .then(items => res.status(200).json(items))
+    .catch(err => res.status(500).send(err.message))
+})
+
+// DELETE /api/v1/userscart/
+router.delete('/', isLoggedIn(), (req, res) => {
+  userscartdb.deleteCartItem(req.body.userId, req.body.productId)
+    .then(() => res.status(200).send())
+    .catch(err => res.status(500).send(err.message))
+})
+
+// DELETE /api/v1/userscart/:id
+router.delete('/:id', isGetOwner, (req, res) => {
+  userscartdb.clearUserCart(req.params.id)
+    .then(() => res.status(200).send())
     .catch(err => res.status(500).send(err.message))
 })
