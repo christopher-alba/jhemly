@@ -23,7 +23,7 @@ router.get('/:id', isGetOwner, (req, res) => {
 })
 
 // POST /api/v1/userscart/
-router.post('/', isLoggedIn(), (req, res) => {
+router.post('/', (req, res, next) => isLoggedIn(next), (req, res) => {
   userscartdb.addCartItem(req.body)
     .then(camelcaseKeys)
     .then(items => res.status(200).json(items))
@@ -31,7 +31,7 @@ router.post('/', isLoggedIn(), (req, res) => {
 })
 
 // DELETE /api/v1/userscart/
-router.delete('/', isLoggedIn(), (req, res) => {
+router.delete('/', (req, res, next) => isLoggedIn(next), (req, res) => {
   userscartdb.deleteCartItem(req.body.userId, req.body.productId)
     .then(() => res.status(200).send())
     .catch(err => res.status(500).send(err.message))
