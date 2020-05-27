@@ -31,3 +31,9 @@ test('test that deleteCartItem works', () => {
     })
     .then(items => expect(items).toHaveLength(0))
 })
+
+test('test that clearUserCart works', () => {
+  return db.clearUserCart(1, testDb)
+    .then(() => testDb('users_cart').where('user_id', 1).select())
+    .then(items => expect(items).toHaveLength(0))
+})

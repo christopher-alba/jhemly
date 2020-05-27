@@ -40,6 +40,7 @@ function deleteCartItem (userId, productId, db = connection) {
 function clearUserCart (id, db = connection) {
   return db('users_cart')
     .where('user_id', id)
+    .del()
     .catch(err => errorHandler('getUserCart', err))
 }
 
