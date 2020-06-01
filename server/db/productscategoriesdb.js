@@ -20,7 +20,7 @@ function getProductCats (id, db = connection) {
 }
 
 function addProductCat (product, db = connection) {
-  return db('product_categories')
+  return db('products_categories')
     .insert({ ...product })
     .then(() => {
       return db('products_categories').select()
