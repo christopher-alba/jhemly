@@ -39,3 +39,21 @@ test('test getAll route works', () => {
     .get('/api/v1/productscategories/')
     .then(res => expect(res.status).toBe(200))
 })
+
+test('test getProductCats route works', () => {
+  return request(server)
+    .get('/api/v1/productscategories/1')
+    .then(res => expect(res.status).toBe(200))
+})
+
+test('test addProductCat route works', () => {
+  return request(server)
+    .post('/api/v1/productscategories')
+    .then(res => expect(res.status).toBe(200))
+})
+
+test('test deleteProductCat route works', () => {
+  return request(server)
+    .delete('/api/v1/productscategories')
+    .then(res => expect(res.status).toBe(200))
+})
