@@ -2,6 +2,7 @@ const usersdb = require('../db/usersdb')
 const express = require('express')
 const router = express.Router()
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 module.exports = router
 const { isGetOwner, isAdmin } = require('../middleware/index')
 // GET /api/v1/users/
@@ -24,7 +25,7 @@ router.get('/:id', isGetOwner, (req, res) => {
 })
 // POST /api/v1/users/admin
 router.post('/', isAdmin, (req, res) => {
-  usersdb.addUser(req.body)
+  usersdb.addUser(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(response => res.status(200).send())
     .catch(err => res.send(err.message))
@@ -32,7 +33,7 @@ router.post('/', isAdmin, (req, res) => {
 
 // PUT /api/v1/users/:id
 router.put('/:id', isGetOwner, (req, res) => {
-  usersdb.updateUser(req.body, req.params.id)
+  usersdb.updateUser(snakecaseKeys({ ...req.body }), req.params.id)
     .then(camelcaseKeys)
     .then(response => res.status(200).send())
     .catch(err => res.send(err.message))
