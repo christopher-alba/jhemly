@@ -2,6 +2,7 @@ const userscartdb = require('../db/userscartdb')
 const express = require('express')
 const router = express.Router()
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 
 module.exports = router
 
@@ -24,7 +25,7 @@ router.get('/:id', isGetOwner, (req, res) => {
 
 // POST /api/v1/userscart/
 router.post('/', (req, res, next) => isLoggedIn(next), (req, res) => {
-  userscartdb.addCartItem(req.body)
+  userscartdb.addCartItem(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(items => res.status(200).json(items))
     .catch(err => res.status(500).send(err.message))
