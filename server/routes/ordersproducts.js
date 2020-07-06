@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 const db = require('../db/ordersproductsdb')
 
 module.exports = router
@@ -22,7 +23,7 @@ router.get('/:id', (req, res) => {
 
 // POST /api/v1/ordersproducts/
 router.post('/', (req, res) => {
-  db.addOrderItem(req.body)
+  db.addOrderItem(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(items => res.status(200).json(items))
     .catch(err => res.status(500).send(err.message))
