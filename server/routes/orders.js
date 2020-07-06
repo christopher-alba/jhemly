@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const db = require('../db/ordersdb')
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 const { isAdmin, isGetOwner } = require('../middleware/index')
 module.exports = router
 
@@ -30,7 +31,7 @@ router.get('/user/:id', isGetOwner, (req, res) => {
 
 // POST /api/v1/orders/
 router.post('/', (req, res) => {
-  db.addOrder(req.body)
+  db.addOrder(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(orders => res.status(200).json(orders))
     .catch(err => res.status(500).send(err.message))
