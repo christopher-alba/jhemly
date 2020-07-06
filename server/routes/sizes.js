@@ -1,6 +1,7 @@
 const sizesdb = require('../db/sizesdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 const router = express.Router()
 const { isAdmin } = require('../middleware/index')
 
@@ -18,7 +19,7 @@ router.get('/:id', (req, res) => {
 
 // POST /api/v1/sizes/:id
 router.post('/', isAdmin, (req, res) => {
-  sizesdb.addSize(req.body)
+  sizesdb.addSize(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(allSizes => {
       res.status(200).json(allSizes)
@@ -28,7 +29,7 @@ router.post('/', isAdmin, (req, res) => {
 
 // PUT /api/v1/sizes/:id
 router.put('/:id', isAdmin, (req, res) => {
-  sizesdb.updateSize(req.body, req.params.id)
+  sizesdb.updateSize(snakecaseKeys({ ...req.body }), req.params.id)
     .then(camelcaseKeys)
     .then(updated => {
       res.status(200).json(updated)
