@@ -1,6 +1,7 @@
 const db = require('../db/productscategoriesdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 const { isAdmin } = require('../middleware/index')
 const router = express.Router()
 module.exports = router
@@ -23,7 +24,7 @@ router.get('/:id', (req, res) => {
 
 // POST /api/v1/productscategories
 router.post('/', isAdmin, (req, res) => {
-  db.addProductCat(req.body)
+  db.addProductCat(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(items => res.status(200).json(items))
     .catch(err => res.status(500).send(err.message))
