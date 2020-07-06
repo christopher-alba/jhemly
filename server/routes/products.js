@@ -1,6 +1,7 @@
 const productsdb = require('../db/productsdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 const { isAdmin } = require('../middleware/index')
 const router = express.Router()
 module.exports = router
@@ -25,7 +26,7 @@ router.get('/:id', (req, res) => {
 })
 // POST /api/v1/products/
 router.post('/', isAdmin, (req, res) => {
-  productsdb.addProduct(req.body)
+  productsdb.addProduct(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(response => res.status(200).send(response))
     .catch(err => res.send(err.message))
@@ -33,7 +34,7 @@ router.post('/', isAdmin, (req, res) => {
 
 // PUT /api/v1/products/:id
 router.put('/:id', isAdmin, (req, res) => {
-  productsdb.updateProduct(req.body, req.params.id)
+  productsdb.updateProduct(snakecaseKeys({ ...req.body }), req.params.id)
     .then(camelcaseKeys)
     .then(response => res.status(200).send(response))
     .catch(err => res.send(err.message))
