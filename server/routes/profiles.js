@@ -1,6 +1,7 @@
 const profilesdb = require('../db/profilesdb')
 const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 const router = express.Router()
 const { isAdmin, isFromOwner } = require('../middleware/index')
 module.exports = router
@@ -23,7 +24,7 @@ router.get('/:id', (req, res) => {
 
 // POST /api/v1/profiles/
 router.post('/', isAdmin, (req, res) => {
-  profilesdb.addProfile(req.body)
+  profilesdb.addProfile(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(response => res.status(200).json(response))
     .catch(err => res.status(500).send(err.message))
@@ -31,7 +32,7 @@ router.post('/', isAdmin, (req, res) => {
 
 // PUT /api/v1/profiles/:id
 router.put('/:id', (req, res, next) => isFromOwner('profile', req, res, next), (req, res) => {
-  profilesdb.updateProfile(req.body, req.params.id)
+  profilesdb.updateProfile(snakecaseKeys({ ...req.body }), req.params.id)
     .then(camelcaseKeys)
     .then(response => res.status(200).json(response))
     .catch(err => res.status(500).send(err.message))
