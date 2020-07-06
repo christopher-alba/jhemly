@@ -20,6 +20,7 @@ const orders = require('./routes/orders')
 const ordersproducts = require('./routes/ordersproducts')
 const userscart = require('./routes/userscart')
 const productscategories = require('./routes/productscategories')
+const favouriteproducts = require('./routes/favouriteproducts')
 
 server.use('/api/v1/products', products)
 server.use('/api/v1/users', users)
@@ -32,5 +33,6 @@ server.use('/api/v1/orders', orders)
 server.use('/api/v1/ordersproducts', ordersproducts)
 server.use('/api/v1/userscart', userscart)
 server.use('/api/v1/productscategories', productscategories)
+server.use('/api/v1/favouriteproducts', favouriteproducts)
 
 module.exports = server

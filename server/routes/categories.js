@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const db = require('../db/categoriesdb')
 const camelcaseKeys = require('camelcase-keys')
+const snakecaseKeys = require('snakecase-keys')
 const { isAdmin } = require('../middleware/index')
 module.exports = router
 
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
 })
 // POST /api/v1/categories/
 router.post('/', isAdmin, (req, res) => {
-  db.addCategory(req.body)
+  db.addCategory(snakecaseKeys({ ...req.body }))
     .then(camelcaseKeys)
     .then(cats => {
       res.status(200).json(cats)
